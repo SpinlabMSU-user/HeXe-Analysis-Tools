@@ -300,7 +300,7 @@ def truncate_to_2n(data, location = 'end'):
     elif location == 'start':
         return data[len(data) - closest_lower:]
     else:
-        print 'location must be end or start'
+        print('location must be end or start')
         return data
         
 def pad_to_next_2n(data, iterations = 1):

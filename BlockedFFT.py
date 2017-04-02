@@ -225,8 +225,8 @@ def blocked_fft_analysis(input_time, input_signal, sample_freq,\
     if truncated:
         step = subtract_to_2n(step)
         step_size = step / sample_freq
-        print 'step size: {} seconds'.format(step_size)
-        print 'step length: {}'.format(step)
+        print('step size: {} seconds'.format(step_size))
+        print('step length: {}'.format(step))
     
     xe_freqs = []
     he_freqs = []
