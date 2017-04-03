@@ -102,7 +102,10 @@ def average_block(data, time_step, sample_rate = 1):
     return np.array(run_av)
 
 def arctan_unwrap(phase_data):
-    '''Unwraps the angle output of arctan in numpy'''
+    '''
+    Unwraps the angle output of arctan in numpy. Arctan usually wraps around
+    [0, 2pi], so this will continue values past 2pi and further on.
+    '''
     phase = [2 * (x + np.pi/2) for x in phase_data]
     phase = np.unwrap(phase)
     phase = [(x/2.0 - pi/2) for x in phase]
@@ -138,6 +141,8 @@ def exp_dec(t, A, tau):
     --Returns--
     (float) exponential decay at time t.
     '''
+    if type(t) != np.ndarray:
+        t = np.array(t)
     return A * np.exp(-t / tau)
     
 def exp_dec2(t, A, tau, offset):
@@ -153,6 +158,8 @@ def exp_dec2(t, A, tau, offset):
     --Returns--
     (float) exponential decay at time t.
     '''
+    if type(t) != np.ndarray:
+        t = np.array(t)
     return A * np.exp(-t / tau) + offset
     
 def fit_exp(x_data, y_data, offset = False):
@@ -186,6 +193,8 @@ def fit_exp(x_data, y_data, offset = False):
         
 def gaussian_curve(x,h,a,x0,sigma):
     '''Gaussian Curve'''
+    if type(x) != np.ndarray:
+        x = np.array(x)
     return h+a*np.exp(-(x-x0)**2/(2*sigma**2))
 
 def gaussian_fit(x_data, y_data):
@@ -201,6 +210,8 @@ def gaussian_fit(x_data, y_data):
     
 def exp_func(x,a,b):
     '''Exponential function for fitting linear data on loglog plot. a * x^b'''
+    if type(x) != np.ndarray:
+        x = np.array(x)
     return a * np.power(x, b)
 
 def fit_exp_func(x_data, y_data):
@@ -367,7 +378,7 @@ def renomalize_kaiser(fft_amplitudes, kaiser_variable):
     normalization_factor = sum(np.kaiser(N,kaiser_variable))/N
     return np.array(fft_amplitudes) / normalization_factor
     
-#statistics
+#Statistics
 def chi_square(expected_array, actual_array, uncertainty):
     '''
     Calculates chi-squared value to show how good a fit is. Found on page 268
